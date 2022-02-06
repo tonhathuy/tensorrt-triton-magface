@@ -3,7 +3,6 @@ Magface Triton Inferece Server Using Tensorrt
 
 # Speed test result
 '''
-python speed_test.py 
 
 |   Loss-Backbone   | Pytorch(ms) | TensorRT_FP16(ms) |
 |   :------------:  | :---------: | :---------------: |
