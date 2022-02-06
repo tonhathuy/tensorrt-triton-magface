@@ -13,6 +13,17 @@
 |    arcface-r18    |     2.90    |        0.64       |
 |  mag-cosface-r50  |     6.56    |        1.34       |
 > Pytorch=1.10.2-cuda_11.5    TensorRT=8.2.1   Hardware=rtx2080ti
+
+## Logs
+TODO list:
+
+- [ ] add client triton 
+- [ ] add onnx opencv infer 
+- [ ] test INT8
+- [x] dynamic shape
+- [ ] test dynamic shape
+
+
 ## Convert Onnx -> TensorRT engine 
 ### Build dockerfile 
 ```bash 
