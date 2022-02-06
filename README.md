@@ -17,8 +17,8 @@
 ## Logs
 TODO list:
 
-- [ ] add client triton 
-- [ ] add onnx opencv infer 
+- [x] add client triton 
+- [x] add onnx opencv infer 
 - [ ] test INT8
 - [x] dynamic shape
 - [ ] test dynamic shape
