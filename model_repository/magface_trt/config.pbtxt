@@ -1,0 +1,18 @@
+name: "magface_trt"
+default_model_filename: "model.plan"
+platform: "tensorrt_plan"
+max_batch_size : 0
+input [
+  {
+    name: "input"
+    data_type: TYPE_FP32
+    dims: [-1,3,112,112]
+  }
+]
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32
+    dims: [1,512]
+  }
+]

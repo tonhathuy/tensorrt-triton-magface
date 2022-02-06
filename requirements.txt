@@ -1,0 +1,30 @@
+# pip install -r requirements.txt
+
+# base ----------------------------------------
+Cython==0.29.24
+matplotlib>=3.2.2
+numpy==1.21.4
+opencv-python==4.5.4.60
+Pillow
+PyYAML==6.0
+scipy==1.4.1
+tensorboard==2.2
+torch==1.10.2
+torchvision==0.11.3
+tqdm>=4.41.0
+termcolor==1.1.0
+torchshard
+six==1.16.0
+imageio
+# logging -------------------------------------
+wandb==0.12.9
+
+# plotting ------------------------------------
+seaborn==0.11.2
+pandas==1.4.0
+
+# export --------------------------------------
+scikit-learn==0.19.2  # for coreml quantization
+onnx==1.9.0
+onnxruntime==1.8.1
+
