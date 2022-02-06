@@ -1,10 +1,7 @@
 # tensorrt-triton-magface
 Magface Triton Inferece Server Using Tensorrt
 
-# System 
-
-
-# Speed test result
+## Speed test result
 
 |   Loss-Backbone   | Pytorch(ms) | TensorRT_FP16(ms) |
 |   :------------:  | :---------: | :---------------: |
@@ -14,13 +11,13 @@ Magface Triton Inferece Server Using Tensorrt
 |    arcface-r18    |     2.90    |        0.64       |
 |  mag-cosface-r50  |     6.56    |        1.34       |
 > Pytorch=1.10.2-cuda_11.5    TensorRT=8.2.1   Hardware=rtx2080ti
-# Convert Onnx -> TensorRT engine 
-## Build dockerfile 
+## Convert Onnx -> TensorRT engine 
+### Build dockerfile 
 ```bash 
 cd tensorrt-triton-magface 
 docker build -t huytn/tensorrt-20.12-py3:v1 .
 ```
-## Run docker container 
+### Run docker container 
 
 example save weight path: ./tensorrt-triton-magface/weights/magface_iresnet100_MS1MV2_dp.pth
 
@@ -30,13 +27,13 @@ chmod +x ./convert.sh
 ./convert.sh 0 ./weights iresnet100 magface_iresnet100_MS1MV2_dp
 ```
 
-### Speed test
+## Speed test
 
 ```bash 
 python3 speed_test.py --torch_path ./weights/magface_iresnet100_MS1MV2_dp.pth --trt_path ./weights/magface_iresnet100_MS1MV2_dp.pth
 ```
 
-### Triton server 
+## Triton server 
 
 Check if Server running correctly:
 ```bash 
@@ -68,7 +65,7 @@ Python client
 python3 client.py dummy --model magface_trt --width 112 --height 112
 ```
 
-### Benchmark
+## Benchmark
 Benchmark with Triton Client SDK docker container
 ```bash 
 docker run -it --ipc=host --net=host nvcr.io/nvidia/tritonserver:21.12-py3-sdk /bin/bash\
