@@ -39,7 +39,7 @@ python3 speed_test.py --torch_path ./weights/magface_iresnet100_MS1MV2_dp.pth --
 
 Check if Server running correctly:
 ```bash 
-$ curl -v localhost:8000/v2/health/ready
+$ curl -v localhost:8330/v2/health/ready
 ...
 < HTTP/1.1 200 OK
 < Content-Length: 0
@@ -62,4 +62,21 @@ I0714 00:37:55.269588 1 http_server.cc:2887] Started HTTPService at 0.0.0.0:8000
 I0714 00:37:55.312507 1 http_server.cc:2906] Started Metrics Service at 0.0.0.0:8002
 ```
 
+Python client 
+```bash 
+python3 client.py dummy --model magface_trt --width 112 --height 112
+```
 
+### Benchmark
+
+```bash 
+docker run -it --ipc=host --net=host nvcr.io/nvidia/tritonserver:21.12-py3-sdk /bin/bash\
+cd install/bin
+perf_analyzer -m magface_trt --percentile=95 --concurrency-range 1:4 -u localhost:8330 --shape input:1,3,112,112 --measurement-interval 10000
+...
+Inferences/Second vs. Client p95 Batch Latency
+Concurrency: 1, throughput: 560.4 infer/sec, latency 2095 usec
+Concurrency: 2, throughput: 1242.8 infer/sec, latency 2007 usec
+Concurrency: 3, throughput: 1093.2 infer/sec, latency 2619 usec
+Concurrency: 4, throughput: 913.8 infer/sec, latency 3766 usec
+```
