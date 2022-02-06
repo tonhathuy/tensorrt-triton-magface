@@ -1,8 +1,10 @@
 # tensorrt-triton-magface
 Magface Triton Inferece Server Using Tensorrt
 
-# Speed test result
+# System 
 
+
+# Speed test result
 
 |   Loss-Backbone   | Pytorch(ms) | TensorRT_FP16(ms) |
 |   :------------:  | :---------: | :---------------: |
@@ -11,8 +13,8 @@ Magface Triton Inferece Server Using Tensorrt
 |    magface-r100   |     3.34    |        2.37       |
 |    arcface-r18    |     2.90    |        0.64       |
 |  mag-cosface-r50  |     6.56    |        1.34       |
-
-### Convert Onnx -> TensorRT engine 
+> Pytorch=1.10.2-cuda_11.5    TensorRT=8.2.1   Hardware=rtx2080ti
+# Convert Onnx -> TensorRT engine 
 ## Build dockerfile 
 ```bash 
 cd tensorrt-triton-magface 
@@ -67,7 +69,7 @@ python3 client.py dummy --model magface_trt --width 112 --height 112
 ```
 
 ### Benchmark
-
+Benchmark with Triton Client SDK docker container
 ```bash 
 docker run -it --ipc=host --net=host nvcr.io/nvidia/tritonserver:21.12-py3-sdk /bin/bash\
 cd install/bin
