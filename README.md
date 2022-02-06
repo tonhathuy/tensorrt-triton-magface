@@ -1,5 +1,7 @@
 # tensorrt-triton-magface
-Magface Triton Inferece Server Using Tensorrt
+
+- High performance and advanced inference for face recognition with Triton Inference Server. 
+- This repo shows how to deploy [Magface](https://github.com/IrvingMeng/MagFace) with [TensorRT engine](https://github.com/NVIDIA/tensorrt) to [Triton Inference Server](https://github.com/NVIDIA/triton-inference-server). 
 
 ## Speed test result
 
