@@ -35,7 +35,7 @@ docker build -t huytn/tensorrt-20.12-py3:v1 .
 example save weight path: ./tensorrt-triton-magface/weights/magface_iresnet100_MS1MV2_dp.pth
 
 ```bash 
-docker run -it --gpus all --name tensorrt_8_magface_convert -v $(pwd):/convert/ -w /convert/ nvcr.io/nvidia/tensorrt:20.11-py3 bash
+docker run -it --gpus all --name tensorrt_8_magface_convert -v $(pwd):/convert/ -w /convert/ huytn/tensorrt-20.12-py3:v1 bash
 chmod +x ./convert.sh
 ./convert.sh 0 ./weights iresnet100 magface_iresnet100_MS1MV2_dp
 ```
