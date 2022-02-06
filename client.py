@@ -233,24 +233,8 @@ if __name__ == '__main__':
         print(f"Received result buffer of size {result.shape}")
         print(f"Naive buffer sum: {np.sum(result)}")
 
-        # Apply NMS
-        pred = non_max_suppression_face(torch.from_numpy(result), conf_thres=0.3, iou_thres=0.5)
 
-        postprocess(img,orgimg,pred)
-        # detected_objects = postprocess(result, input_image.shape[1], input_image.shape[0], [FLAGS.width, FLAGS.height], FLAGS.confidence, FLAGS.nms)
-        # print(f"Detected objects: {len(detected_objects)}")
 
-        # for box in detected_objects:
-        #     print(f"{COCOLabels(box.classID).name}: {box.confidence}")
-        #     plot_one_box(box.box(), input_image,color=tuple(RAND_COLORS[box.classID % 64].tolist()), label=f"{COCOLabels(box.classID).name}:{box.confidence:.2f}",)   
-
-        # if FLAGS.out:
-        #     cv2.imwrite(FLAGS.out, input_image)
-        #     print(f"Saved result to {FLAGS.out}")
-        # else:
-        #     cv2.imshow('image', input_image)
-        #     cv2.waitKey(0)
-        #     cv2.destroyAllWindows()
 
     # VIDEO MODE
     if FLAGS.mode == 'video':
@@ -261,7 +245,7 @@ if __name__ == '__main__':
 
         inputs = []
         outputs = []
-        inputs.append(grpcclient.InferInput('data', [1, 3, FLAGS.width, FLAGS.height], "FP32"))
+        inputs.append(grpcclient.InferInput('input', [1, 3, FLAGS.width, FLAGS.height], "FP32"))
         outputs.append(grpcclient.InferRequestedOutput('prob'))
 
         print("Opening input video stream...")
@@ -293,22 +277,9 @@ if __name__ == '__main__':
                                     outputs=outputs,
                                     client_timeout=FLAGS.client_timeout)
 
-            result = results.as_numpy('prob')
+            result = results.as_numpy('output')
 
-            detected_objects = postprocess(result, frame.shape[1], frame.shape[0], [FLAGS.width, FLAGS.height], FLAGS.confidence, FLAGS.nms)
-            print(f"Frame {counter}: {len(detected_objects)} objects")
-            counter += 1
-
-            for box in detected_objects:
-                print(f"{COCOLabels(box.classID).name}:{box.confidence}")
-                plot_one_box(box.box(), input_image,color=tuple(RAND_COLORS[box.classID % 64].tolist()), label=f"{COCOLabels(box.classID).name}: {box.confidence:.2f}",)   
-
-            if FLAGS.out:
-                out.write(frame)
-            else:
-                cv2.imshow('image', frame)
-                if cv2.waitKey(1) == ord('q'):
-                    break
+            
 
         if FLAGS.model_info:
             statistics = triton_client.get_inference_statistics(model_name=FLAGS.model)
