@@ -17,11 +17,13 @@
 ## Logs
 TODO list:
 
+- [x] export onnx, tensorRT 
 - [x] add client triton 
 - [x] add onnx opencv infer 
 - [ ] test INT8
 - [x] dynamic shape
 - [ ] test dynamic shape
+- [ ] eval tensorRT - onnx
 
 
 ## Convert Onnx -> TensorRT engine 
