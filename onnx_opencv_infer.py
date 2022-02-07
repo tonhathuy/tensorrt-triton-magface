@@ -8,7 +8,7 @@ net =  cv2.dnn.readNetFromONNX(onnx_model_path)
 image = cv2.imread(sample_image)
 
 dummy_input = np.ones((112, 112, 3), dtype=np.float32)
-blob = cv2.dnn.blobFromImage(dummy_input, 1.0, (112, 112),(0, 0, 0), swapRB=True, crop=False)
+blob = cv2.dnn.blobFromImage(image, 1.0, (112, 112),(0, 0, 0), swapRB=False, crop=False)
 net.setInput(blob)
 preds = net.forward()
 print(preds.shape, preds[0][:10], preds.dtype)
@@ -40,8 +40,16 @@ if check:
     model = builder_inf(args)
     model = torch.nn.DataParallel(model)
     model.eval()
-    # print(image.shape)
+    
+    image = image.transpose((2, 0, 1))
+    print(image.shape)
+    image = image[np.newaxis, ::]
+    image = image.astype(np.float32, copy=False)
+    
+    data = torch.from_numpy(image)
+    data = data.to(torch.device("cuda"))
+
     dummy_input = torch.ones(1, 3, 112, 112, device='cuda')
-    preds_pt = model(dummy_input)
+    preds_pt = model(data)
     print(preds_pt.shape, preds_pt[0][:10], preds_pt.dtype)
     print("max(|torch_pred - onnx_pred|） =",abs(preds_pt.data.cpu().numpy()-preds).max())
