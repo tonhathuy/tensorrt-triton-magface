@@ -16,10 +16,10 @@ trtexec --onnx=$MODEL_ONNX_PATH --fp16 --device=2 --best --minShapes=input:1x3x1
 
 
 mkdir -p ./model_repository/magface_trt/1/
-cp MODEL_TRT_PATH ./model_repository/magface_trt/1/model.plan
+cp $MODEL_TRT_PATH ./model_repository/magface_trt/1/model.plan
 
 mkdir -p ./model_repository/magface_trt/1/
-cp MODEL_ONNX_PATH ./model_repository/magface_onnx/1/model.onnx
+cp $MODEL_ONNX_PATH ./model_repository/magface_onnx/1/model.onnx
 
 # # TensorRT Inference
 # CUDA_VISIBLE_DEVICES=$CUDA python torch2trt/main.py --trt_path ./$WEIGHT_DIR/yolov5n-face.trt
